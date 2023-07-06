@@ -7,6 +7,7 @@ require('dotenv').config();
 
 // Check environment variables
 const host = process.env.DBHost;
+const port = process.env.DBPort || 3306;
 const user = process.env.DBUser;
 const password = process.env.DBPwd;
 const database = process.env.DB;
@@ -19,7 +20,7 @@ if (!host || !user || !password || !database || !accessKeyId || !secretAccessKey
 
 
 // MySQL database credentials
-const dbOptions = { host, user, password, database };
+const dbOptions = { host, user, password, database, port };
 
 // AWS S3 configuration
 const s3 = new AWS.S3({ accessKeyId, secretAccessKey, region });
@@ -30,7 +31,7 @@ function backupData() {
     const backupFile = path.join(__dirname, `${dbOptions.database}-${new Date().toISOString()}.sql`);
 
     // Create the dump command
-    const cmd = `mysqldump -h${dbOptions.host} -u${dbOptions.user} -p${dbOptions.password} ${dbOptions.database} > ${backupFile}`;
+    const cmd = `mysqldump -h${dbOptions.host} -P${dbOptions.port} -u${dbOptions.user} -p${dbOptions.password} ${dbOptions.database} > ${backupFile}`;
 
     // Execute the command
     exec(cmd, (error, stdout, stderr) => {
