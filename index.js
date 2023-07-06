@@ -6,15 +6,16 @@ require('dotenv').config();
 
 
 // Check environment variables
-const host = process.env.DBHost;
-const port = process.env.DBPort || 3306;
-const user = process.env.DBUser;
-const password = process.env.DBPwd;
+const host = process.env.DBHOST;
+const port = process.env.DBPORT || 3306;
+const user = process.env.DBUSER;
+const password = process.env.DBPWD;
 const database = process.env.DB;
-const accessKeyId = process.env.AKId;
-const secretAccessKey = process.env.AKSecret;
-const region = process.env.region;
-const Bucket = process.env.Bucket;
+const accessKeyId = process.env.AKID;
+const secretAccessKey = process.env.AKSECRET;
+const region = process.env.REGION;
+const Bucket = process.env.BUCKET;
+console.log(host, port, user, password, database, accessKeyId, secretAccessKey, region, Bucket)
 if (!host || !user || !password || !database || !accessKeyId || !secretAccessKey || !region || !Bucket)
     throw new Error('Insufficient environment variables.');
 
